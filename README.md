@@ -1,45 +1,50 @@
 Music playlist generator
 ========================
 
+Requirement
+-----------
+
+PHP CLI >= 5.4
+
+
 Usage
 -----
-
-    ./bin/music-playlist-generator.phar configuration.json
+```bash
+./bin/music-playlist-generator.phar configuration.json
 
 
 Configuration
 -------------
 ```json
-    {
-        "exiftoolPath"          : "/path/to/exiftool",
-        "mediaDirectoryPath"    : "/path/to/media/library/",
-        "playlistPath"          : "./myPlaylist.m3u8",
+{
+    "exiftoolPath"          : "/path/to/exiftool",
+    "mediaDirectoryPath"    : "/path/to/media/library/",
+    "playlistPath"          : "./myPlaylist.m3u8",
 
-        "format"                : "m3u8",
-        "relativePath"          : true,
-        "directorySeparator"    : "/",
+    "format"                : "m3u8",
+    "relativePath"          : true,
+    "directorySeparator"    : "/",
 
-        "rules": [
+    "rules": [
+        {
+            "field"     : "Popularimeter",
+            "operator"  : "isEqual",
+            "value"     : 5
+        },
+        "and",
+        [
             {
-                "field": "Popularimeter",
-                "operator": "isEqual",
-                "value": 5
+                "field"     : "Genre",
+                "operator"  : "isEqual",
+                "value"     : "Pop"
             },
-            "and",
-            [
-                {
-                    "field": "Genre",
-                    "operator": "isEqual",
-                    "value": "Pop"
-                },
-                "or",
-                {
-                    "field": "Genre",
-                    "operator": "isEqual",
-                    "value": "Rock"
-                }
-            ]
+            "or",
+            {
+                "field"     : "Genre",
+                "operator"  : "isEqual",
+                "value"     : "Rock"
+            }
         ]
-
-    }
+    ]
+}
 
