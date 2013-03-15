@@ -1,0 +1,19 @@
+{
+    "name"          : "neolao/music-playlist-generator",
+    "type"          : "util",
+    "description"   : "Playlist generator",
+    "license"       : "MPL-2.0",
+    "authors"       :
+    [
+        {
+            "name"      : "neolao",
+            "email"     : "contact@neolao.com",
+            "homepage"  : "http://neolao.com"
+        }
+    ],
+    "minimum-stability" : "dev",
+    "require":
+    {
+        "php"                   : ">=5.4"
+    }
+}
