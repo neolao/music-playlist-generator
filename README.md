@@ -11,7 +11,7 @@ Usage
 -----
 ```bash
 ./bin/music-playlist-generator.phar configuration.json
-
+```
 
 Configuration
 -------------
@@ -47,4 +47,5 @@ Configuration
         ]
     ]
 }
+```
 
