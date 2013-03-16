@@ -62,6 +62,8 @@ Configuration
 | directorySeparator | Directory separator of the file paths in the playlist | No | / |
 | rules | Conditions | No | |
 
+Note: The paths are relative to the configuration file.
+
 
 Formats
 -------
@@ -73,3 +75,54 @@ Formats
 | pls    | In progress |
 | xspf   | In progress |
 | asx    | In progress |
+
+
+Fields
+------
+
+| Name                            | Description                   |
+| ------------------------------- | ----------------------------- |
+| File Name                       | |
+| Directory                       | |
+| File Size                       | |
+| File Modification Date/Time     | |
+| File Access Date/Time           | |
+| File Inode Change Date/Time     | |
+| File Permissions                | |
+| File Type                       | |
+| MIME Type                       | |
+| MPEG Audio Version              | |
+| Audio Layer                     | |
+| Audio Bitrate                   | |
+| Sample Rate                     | |
+| Channel Mode                    | |
+| MS Stereo                       | |
+| Intensity Stereo                | |
+| Copyright Flag                  | |
+| Original Media                  | |
+| Emphasis                        | |
+| Album Artist                    | |
+| Band                            | |
+| Credits                         | |
+| Encoded By                      | |
+| Performer                       | |
+| Www                             | |
+| Year                            | |
+| Cover Art Front Desc            | |
+| ID3 Size                        | |
+| Title                           | |
+| Artist                          | |
+| Album                           | |
+| Genre                           | |
+| Track                           | |
+| Recording Time                  | |
+| User Defined URL                | |
+| Language                        | |
+| Popularimeter                   | |
+| Comment                         | |
+| Picture Mime Type               | |
+| Picture Type                    | |
+| Picture Description             | |
+| Date/Time Original              | |
+| Duration                        | |
+
