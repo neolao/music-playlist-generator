@@ -10,20 +10,6 @@ namespace Playlist\Condition;
 interface ConditionInterface
 {
     /**
-     * Set the field name
-     *
-     * @param   string      $name       Field name
-     */
-    function setField($name);
-
-    /**
-     * Set the value
-     *
-     * @param   mixed       $value      Value
-     */
-    function setValue($value);
-
-    /**
      * Indicates that the condition matches the metadata
      *
      * @param   stdClass        $metadata       Media metadata

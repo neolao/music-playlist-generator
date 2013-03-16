@@ -1,0 +1,32 @@
+{
+    "exiftoolPath"          : "../exiftool/exiftool",
+    "cachePath"             : "../cache",
+
+    "mediaDirectoryPath"    : "/home/neolao/sounds/backup/",
+    "playlistPath"          : "./playlist-003.m3u8",
+    "format"                : "m3u8",
+    "relativePath"          : true,
+    "directorySeparator"    : "/",
+
+    "rules": [
+        {
+            "field"     : "Popularimeter",
+            "operator"  : "isEqual",
+            "value"     : 5
+        },
+        "or",
+        [
+            {
+                "field"     : "Genre",
+                "operator"  : "contains",
+                "value"     : "Rock"
+            },
+            "and",
+            {
+                "field"     : "Year",
+                "operator"  : "isHigherOrEqual",
+                "value"     : 2005
+            }
+        ]
+    ]
+}

@@ -281,7 +281,9 @@ sub Recompose($$;$$)
     if ($csType == 0x100) {     # UTF8 (also treat ASCII as UTF8)
         if ($] >= 5.006001) {
             # let Perl do it
-            $outVal = pack('C0U*', @$uni);
+            # @neolao
+            # $outVal = pack('C0U*', @$uni);
+            $outVal = Image::ExifTool::PackUTF8(@$uni);
         } else {
             # do it ourself
             $outVal = Image::ExifTool::PackUTF8(@$uni);

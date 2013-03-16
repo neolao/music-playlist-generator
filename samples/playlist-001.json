@@ -1,0 +1,24 @@
+{
+    "exiftoolPath"          : "../exiftool/exiftool",
+    "cachePath"             : "../cache",
+
+    "mediaDirectoryPath"    : "/home/neolao/sounds/backup/",
+    "playlistPath"          : "./playlist-001.m3u8",
+    "format"                : "m3u8",
+    "relativePath"          : true,
+    "directorySeparator"    : "\\",
+
+    "rules": [
+        {
+            "field"     : "Artist",
+            "operator"  : "=",
+            "value"     : "Aaliyah"
+        },
+        "or",
+        {
+            "field"     : "Popularimeter",
+            "operator"  : ">=",
+            "value"     : 3
+        }
+    ]
+}

@@ -147,9 +147,10 @@ class Generator
                 }
             }
             if (is_null($content)) {
-                $command = popen($exiftoolPath . ' -json "' . $filePath . '"', 'r');
-                $content = stream_get_contents($command);
-                pclose($command);
+                $command = $exiftoolPath . ' -x Picture -x "Cover Art Front" -json "' . $filePath . '"';
+                $process = popen($command, 'r');
+                $content = stream_get_contents($process);
+                pclose($process);
 
                 if (isset($fileCache)) {
                     file_put_contents($fileCache, $content);
@@ -158,6 +159,12 @@ class Generator
 
             // Parse the result
             $json       = json_decode($content);
+            if (!is_array($json)) {
+                $status = self::STATUS_ERROR;
+                $fileName = pathinfo($filePath, PATHINFO_BASENAME);
+                echo Cli::getColoredString("$lineNumber $status Invalid metadata: $filePath", 'red'), "\n";
+                continue;
+            }
             $metadata   = $json[0];
             $metadata   = $this->_normalizeMetadata($metadata);
             $artist     = null;
