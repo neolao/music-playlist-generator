@@ -1,0 +1,46 @@
+ExifTool Version Number         : 9.23
+File Name                       : 05 Namidairo.mp3
+Directory                       : /home/neolao/sounds/backup/YUI/I LOVED YESTERDAY
+File Size                       : 8.3 MB
+File Modification Date/Time     : 2013:03:15 09:55:10+01:00
+File Access Date/Time           : 2013:03:16 02:26:40+01:00
+File Inode Change Date/Time     : 2013:03:15 10:20:12+01:00
+File Permissions                : rw-r--r--
+File Type                       : MP3
+MIME Type                       : audio/mpeg
+MPEG Audio Version              : 1
+Audio Layer                     : 3
+Audio Bitrate                   : 320 kbps
+Sample Rate                     : 44100
+Channel Mode                    : Stereo
+MS Stereo                       : Off
+Intensity Stereo                : Off
+Copyright Flag                  : False
+Original Media                  : True
+Emphasis                        : None
+Album Artist                    : YUI
+Band                            : YUI
+Credits                         : cloud-honey.livejournal.com
+Encoded By                      : Exact Audio Copy   (セキュアモード)
+Performer                       : YUI
+Www                             : cloud-honey.livejournal.com
+Year                            : 2008
+Cover Art Front Desc            : Cover Art (Front).jpg
+Cover Art Front                 : (Binary data 75603 bytes, use -b option to extract)
+ID3 Size                        : 81382
+Title                           : Namidairo
+Artist                          : YUI
+Album                           : I LOVED YESTERDAY
+Genre                           : J-Pop
+Track                           : 05
+Recording Time                  : 2008
+User Defined URL                : 
+Language                        : jpn
+Popularimeter                   : no@email Rating=255 Count=0
+Comment                         : (iTunNORM)  000010EB 000011E7 00004222 000047EE 0002BF4E 0002BF4E 00008000 00008000 0001FBD0 00011187
+Picture Mime Type               : image/jpeg
+Picture Type                    : Other
+Picture Description             : 
+Picture                         : (Binary data 80406 bytes, use -b option to extract)
+Date/Time Original              : 2008
+Duration                        : 0:03:34 (approx)

@@ -12,77 +12,33 @@ function rglob($pattern, $path)
 // Environment
 $currentDirectory = $_SERVER['PWD'];
 
+// Requirement
+require_once(__DIR__ . '/classes/Util/Cli.php');
+require_once(__DIR__ . '/classes/Generator.php');
+
+use Playlist\Util\Cli;
+
 // Get parameters
 $arguments = $_SERVER['argv'];
-array_shift($arguments);
+$script = array_shift($arguments);
 if (empty($arguments)) {
-    die("Configuration path is undefined\n");
+    echo Cli::getColoredString("Usage: $script configuration.json\n\n", 'white', 'red');
+    exit;
 }
 $configurationPath = array_shift($arguments);
 if ($configurationPath[0] !== '/') {
     $configurationPath = $currentDirectory . '/' . $configurationPath;
 }
 if (!is_file($configurationPath)) {
-    die("File not found : $configurationPath\n");
+    echo Cli::getColoredString("File not found : $configurationPath\n\n", 'white', 'red');
+    exit;
 }
 
-
-// Parse the configuration file
-$configurationContent   = file_get_contents($configurationPath);
-$configuration          = json_decode($configurationContent);
-$mediaDirectoryPath     = $configuration->mediaDirectoryPath;
-$playlistPath           = $configuration->playlistPath;
-
-// Get the exiftool path
-$exiftoolPath           = 'exiftool';
-if (isset($configuration->exiftoolPath)) {
-    $exiftoolPath       = $configuration->exiftoolPath;
-    if ($exiftoolPath[0] !== '/') {
-        $exiftoolPath   = pathinfo($configurationPath, PATHINFO_DIRNAME) . '/' . $exiftoolPath;
-    }
+// Initialize the generator
+try {
+    $generator              = new Playlist\Generator();
+    $generator->generate($configurationPath);
+} catch (\Exception $error) {
+    $message = $error->getMessage();
+    echo Cli::getColoredString($message, 'white', 'red');
 }
-
-// Initialize the temporary file
-$temporaryOutputPath    = tempnam(sys_get_temp_dir(), 'generator-temp.txt');
-$temporaryOutput        = fopen($temporaryOutputPath, 'w+');
-
-$filePaths = rglob('*.mp3', $mediaDirectoryPath);
-echo 'Files: ', count($filePaths), "\n";
-foreach ($filePaths as $filePath) {
-    $command = $exiftoolPath . ' -json "' . $filePath . '" > "' . $temporaryOutputPath . '"';
-    passthru($command, $output);
-
-    // An error occurred
-    if ($output !== 0) {
-        continue;
-    }
-
-    // Get content of the exiftool result
-    $content = '';
-    fseek($temporaryOutput, 0);
-    while (($buffer = fgets($temporaryOutput, 4096)) !== false) {
-        $content .= $buffer;
-    }
-
-    $json = json_decode($content);
-    $json = $json[0];
-
-    $artist = null;
-    $title = null;
-    $note = null;
-    if (isset($json->Artist)) {
-        $artist = $json->Artist;
-    }
-    if (isset($json->Title)) {
-        $title = $json->Title;
-    }
-    if (isset($json->Popularimeter)) {
-        $note = $json->Popularimeter;
-    }
-
-    if (empty($artist) || empty($title)) {
-        continue;
-    }
-    echo $artist, ' - ', $title, "\n";
-}
-echo "\n";

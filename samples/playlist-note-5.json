@@ -1,5 +1,15 @@
 {
     "exiftoolPath"          : "../exiftool/exiftool",
     "mediaDirectoryPath"    : "/home/neolao/sounds/backup/",
-    "playlistPath"          : "/home/neolao/sounds/backup/_playlists/note-5.m3u8"
+    "playlistPath"          : "/home/neolao/sounds/backup/_playlists/note-5.m3u8",
+
+    "format"                : "m3u8",
+    "relativePath"          : true,
+    "directorySeparator"    : "/",
+
+    "rules": {
+        "field"     : "Popularimeter",
+        "operator"  : "isEqual",
+        "value"     : 5
+    }
 }
