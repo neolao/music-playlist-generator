@@ -74,6 +74,18 @@ class Generator
             $playlistFormat = $configuration->format;
         }
 
+        // Get the directory separator for the file paths
+        $playlistDirectorySeparator = '/';
+        if (isset($configuration->directorySeparator)) {
+            $playlistDirectorySeparator = $configuration->directorySeparator;
+        }
+
+        // Get the relative path value
+        $playlistWithRelativePath = false;
+        if (isset($configuration->relativePath)) {
+            $playlistWithRelativePath = ($configuration->relativePath);
+        }
+
         // Get the media file pattern
         $mediaFilePattern = '*.mp3';
         if (isset($configuration->mediaFilePattern)) {
@@ -99,6 +111,12 @@ class Generator
 
         // Initialize the writer
         $this->_writer = $this->_writerFactory($playlistFormat);
+        $this->_writer->setDirectorySeparator($playlistDirectorySeparator);
+        if ($playlistWithRelativePath) {
+            $this->_writer->enableRelativePath();
+        } else {
+            $this->_writer->disableRelativePath();
+        }
         $this->_writer->setFilePath($playlistPath);
 
         // Initialize rules
@@ -179,7 +197,8 @@ class Generator
     /**
      * Create the writer instance
      *
-     * @param   string      $format         Playlist format
+     * @param   string                              $format     Playlist format
+     * @return  Playlist\Writer\WriterInterface                 Writer instance
      */
     protected function _writerFactory($format)
     {
@@ -257,6 +276,7 @@ class Generator
             $normalized->Popularimeter = $popularimeter;
         }
 
+        // Return the normalized metadata
         return $normalized;
     }
 

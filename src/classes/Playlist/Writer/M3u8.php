@@ -24,7 +24,7 @@ class M3u8 extends WriterAbstract implements WriterInterface
     {
         parent::setFilePath($path);
 
-        fwrite($this->_fileResource, "#EXTM3U\n");
+        $this->_append("#EXTM3U\n");
     }
 
     /**
@@ -38,6 +38,7 @@ class M3u8 extends WriterAbstract implements WriterInterface
         $duration   = 0;
         $artist     = '';
         $title      = '';
+        $mediaPath  = $this->_getMediaPath($filePath);
 
         if (isset($metadata->Duration)) {
             $duration = $metadata->Duration;
@@ -49,7 +50,7 @@ class M3u8 extends WriterAbstract implements WriterInterface
             $title = $metadata->Title;
         }
 
-        fwrite($this->_fileResource, "#EXTINF:$duration,$artist - $title\n");
-        fwrite($this->_fileResource, "$filePath\n");
+        $this->_append("#EXTINF:$duration,$artist - $title\n");
+        $this->_append("$mediaPath\n");
     }
 }

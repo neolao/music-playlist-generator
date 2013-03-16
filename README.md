@@ -4,7 +4,8 @@ Music playlist generator
 Requirement
 -----------
 
-PHP CLI >= 5.4
+* PHP CLI >= 5.4
+* Perl >= 5
 
 
 Usage
