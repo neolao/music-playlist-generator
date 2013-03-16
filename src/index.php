@@ -12,10 +12,25 @@ function rglob($pattern, $path)
 // Environment
 $currentDirectory = $_SERVER['PWD'];
 
-// Requirement
-require_once(__DIR__ . '/classes/Util/Cli.php');
-require_once(__DIR__ . '/classes/Generator.php');
+// Autoload classes
+function defaultAutoload($className)
+{
+    $className = ltrim($className, '\\');
+    $filePath  = '';
+    $lastNamespacePosition = strripos($className, '\\');
+    if ($lastNamespacePosition) {
+        $namespace = substr($className, 0, $lastNamespacePosition);
+        $className = substr($className, $lastNamespacePosition + 1);
+        $filePath  = str_replace('\\', DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR;
+    }
+    $filePath .= str_replace('_', DIRECTORY_SEPARATOR, $className).'.php';
 
+    require_once $filePath;
+}
+spl_autoload_register('defaultAutoload');
+set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . DIRECTORY_SEPARATOR . 'classes');
+
+// Requirement
 use Playlist\Util\Cli;
 
 // Get parameters
