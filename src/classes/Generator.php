@@ -23,6 +23,13 @@ class Generator
 
 
     /**
+     * Directory path of the configuration file
+     *
+     * @var string
+     */
+    protected $_configurationDirectory;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -36,6 +43,8 @@ class Generator
      */
     public function generate($configurationPath)
     {
+        $this->_configurationDirectory = pathinfo($configurationPath, PATHINFO_DIRNAME);
+
         // Parse the configuration
         $configurationContent   = file_get_contents($configurationPath);
         $configuration          = json_decode($configurationContent);
@@ -44,13 +53,13 @@ class Generator
         if (!isset($configuration->mediaDirectoryPath)) {
             throw new \Exception('Parameter "mediaDirectoryPath" is undefined');
         }
-        $mediaDirectoryPath = $configuration->mediaDirectoryPath;
+        $mediaDirectoryPath = $this->_getRealPath($configuration->mediaDirectoryPath);
 
         // Get the playlist path
         if (!isset($configuration->playlistPath)) {
             throw new \Exception('Parameter "playlistPath" is undefined');
         }
-        $playlistPath = $configuration->playlistPath;
+        $playlistPath = $this->_getRealPath($configuration->playlistPath);
 
         // Get the media file pattern
         $mediaFilePattern = '*.mp3';
@@ -61,9 +70,15 @@ class Generator
         // Get the exiftool path
         $exiftoolPath = 'exiftool';
         if (isset($configuration->exiftoolPath)) {
-            $exiftoolPath = $configuration->exiftoolPath;
-            if ($exiftoolPath[0] !== '/') {
-                $exiftoolPath = pathinfo($configurationPath, PATHINFO_DIRNAME) . '/' . $exiftoolPath;
+            $exiftoolPath = $this->_getRealPath($configuration->exiftoolPath);
+        }
+
+        // Get the cache path
+        $cachePath = null;
+        if (isset($configuration->cachePath)) {
+            $cachePath = $this->_getRealPath($configuration->cachePath);
+            if (!is_dir($cachePath) || !is_writable($cachePath)) {
+                throw new \Exception("Cache directory is not writable: $cachePath");
             }
         }
 
@@ -85,9 +100,24 @@ class Generator
             $lineNumber = "[$indexString/$count]";
 
             // Execute exiftool and ge the result
-            $command = popen($exiftoolPath . ' -json "' . $filePath . '"', 'r');
-            $content = stream_get_contents($command);
-            pclose($command);
+            // Use the cache if the path is provided
+            $content = null;
+            $fileHash = md5($filePath);
+            if ($cachePath) {
+                $fileCache = $cachePath . '/' . $fileHash;
+                if (is_file($fileCache)) {
+                    $content = file_get_contents($fileCache);
+                }
+            }
+            if (is_null($content)) {
+                $command = popen($exiftoolPath . ' -json "' . $filePath . '"', 'r');
+                $content = stream_get_contents($command);
+                pclose($command);
+
+                if (isset($fileCache)) {
+                    file_put_contents($fileCache, $content);
+                }
+            }
 
             // Parse the result
             $json       = json_decode($content);
@@ -176,5 +206,20 @@ class Generator
         }
 
         return $normalized;
+    }
+
+    /**
+     * Get the real path
+     *
+     * @param   string      $path       Path
+     * @return  string                  Real path
+     */
+    protected function _getRealPath($path)
+    {
+        if (strlen($path) > 0 && $path[0] !== '/') {
+            $path = $this->_configurationDirectory . '/' . $path;
+        }
+
+        return $path;
     }
 }
