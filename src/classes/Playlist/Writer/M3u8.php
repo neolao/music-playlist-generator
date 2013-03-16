@@ -35,7 +35,7 @@ class M3u8 extends WriterAbstract implements WriterInterface
      */
     public function addFile($filePath, $metadata)
     {
-        $duration   = 0;
+        $duration   = -1;
         $artist     = '';
         $title      = '';
         $mediaPath  = $this->_getMediaPath($filePath);

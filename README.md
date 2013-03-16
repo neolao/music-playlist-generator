@@ -60,6 +60,16 @@ Configuration
 | format | Playlist format | No | m3u8 |
 | relativePath | Indicates that the file paths in the playlist are relative | No | false |
 | directorySeparator | Directory separator of the file paths in the playlist | No | / |
-[ rules | Conditions | No | |
+| rules | Conditions | No | |
 
 
+Formats
+-------
+
+| Format | Status      |
+| ------ | ----------- |
+| m3u    | Unsupported |
+| m3u8   | Available   |
+| pls    | In progress |
+| xspf   | In progress |
+| asx    | In progress |
