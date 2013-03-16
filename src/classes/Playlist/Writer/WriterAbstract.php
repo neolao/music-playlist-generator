@@ -51,7 +51,9 @@ abstract class WriterAbstract
      */
     public function __destruct()
     {
-        fclose($this->_fileResource);
+        if ($this->_fileResource) {
+            fclose($this->_fileResource);
+        }
     }
 
     /**

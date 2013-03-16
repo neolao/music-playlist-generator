@@ -46,7 +46,7 @@ class Rules
         if ($this->_condition) {
             return $this->_condition->match($metadata);
         }
-        return false;
+        return true;
     }
 
     /**

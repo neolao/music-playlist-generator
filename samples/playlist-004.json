@@ -1,0 +1,7 @@
+{
+    "exiftoolPath"          : "../exiftool/exiftool",
+    "cachePath"             : "../cache",
+
+    "mediaDirectoryPath"    : "/home/neolao/sounds/backup/",
+    "playlistPath"          : "./playlist-004.m3u8"
+}
