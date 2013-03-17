@@ -1,4 +1,9 @@
 <?php
+// Check PHP version
+if (version_compare(PHP_VERSION, '5.4.0') < 0) {
+    die('You need PHP version 5.4.0 or above. Your version is '.PHP_VERSION.'.');
+}
+
 // Environment
 $currentDirectory = $_SERVER['PWD'];
 
