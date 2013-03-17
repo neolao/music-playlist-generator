@@ -126,3 +126,23 @@ Fields
 | Date/Time Original              | |
 | Duration                        | |
 
+
+Operators
+---------
+
+| Operator | Description |
+| -------- | ----------- |
+| isEqual  | |
+| =        | |
+| isDifferent | |
+| !=       | |
+| isHigher | |
+| >        | |
+| isHigherOrEqual | |
+| >=       | |
+| isLower  | |
+| <        | |
+| isLowerOrEqual | |
+| <=       | |
+| contains | |
+
