@@ -133,16 +133,16 @@ Operators
 | Operator | Description |
 | -------- | ----------- |
 | isEqual  | |
-| =        | |
+| =        | Alias of `isEqual` |
 | isDifferent | |
-| !=       | |
+| !=       | Alias of `isDifferent` |
 | isHigher | |
-| >        | |
+| >        | Alias of `isHigher` |
 | isHigherOrEqual | |
-| >=       | |
+| >=       | Alias of `isHigherOrEqual` |
 | isLower  | |
-| <        | |
+| <        | Alias of `isLower` |
 | isLowerOrEqual | |
-| <=       | |
+| <=       | Alias of `isLowerOrEqual` |
 | contains | |
 
