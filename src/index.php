@@ -1,14 +1,4 @@
 <?php
-function rglob($pattern, $path)
-{
-    $paths = glob($path.'*', GLOB_MARK|GLOB_ONLYDIR|GLOB_NOSORT);
-    $files = glob($path.$pattern, GLOB_MARK|GLOB_BRACE);
-    foreach ($paths as $path) {
-        $files = array_merge($files, rglob($pattern, $path));
-    }
-    return $files;
-}
-
 // Environment
 $currentDirectory = $_SERVER['PWD'];
 
@@ -51,7 +41,7 @@ if (!is_file($configurationPath)) {
 
 // Initialize the generator
 try {
-    $generator              = new Playlist\Generator();
+    $generator = new Playlist\Generator();
     $generator->generate($configurationPath);
 } catch (\Exception $error) {
     $message = $error->getMessage();
