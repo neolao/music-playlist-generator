@@ -219,6 +219,9 @@ class Generator
             case 'pls':
                 $writer = new Writer\Pls();
                 break;
+            case 'xspf':
+                $writer = new Writer\Xspf();
+                break;
             default:
                 $writer = new Writer\Fake();
         }

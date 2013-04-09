@@ -74,7 +74,7 @@ Formats
 | m3u    | Unsupported |
 | m3u8   | Available   |
 | pls    | Available   |
-| xspf   | In progress |
+| xspf   | Available   |
 | asx    | In progress |
 
 
