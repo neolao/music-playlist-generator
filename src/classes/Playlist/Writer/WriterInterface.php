@@ -40,4 +40,9 @@ interface WriterInterface
      * @param   stdClass    $metadata       File metadata
      */
     function addFile($filePath, $metadata);
+
+    /**
+     * Close the writer
+     */
+    function close();
 }

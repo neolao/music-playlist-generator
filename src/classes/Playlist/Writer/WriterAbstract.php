@@ -51,7 +51,7 @@ abstract class WriterAbstract
      */
     public function __destruct()
     {
-        if ($this->_fileResource) {
+        if (is_resource($this->_fileResource)) {
             fclose($this->_fileResource);
         }
     }
@@ -90,16 +90,42 @@ abstract class WriterAbstract
     public function setFilePath($path)
     {
         $this->_filePath = $path;
-        $this->_fileResource = fopen($path, 'w+');
+        $this->_fileResource = fopen($path, 'w');
     }
 
     /**
-     * Append content to the target file
+     * Close the writer
+     */
+    public function close()
+    {
+        if (is_resource($this->_fileResource)) {
+            fclose($this->_fileResource);
+        }
+    }
+
+    /**
+     * Add content to the beginning of the target file
+     *
+     * @param   string      $content        Content
+     */
+    protected function _prepend($content)
+    {
+        fclose($this->_fileResource);
+
+        $fileContent = file_get_contents($this->_filePath);
+        file_put_contents($this->_filePath, $content . $fileContent);
+
+        $this->_fileResource = fopen($this->_filePath, 'a');
+    }
+
+    /**
+     * Add content to the end of the target file
      *
      * @param   string      $content        Content
      */
     protected function _append($content)
     {
+        fseek($this->_fileResource, 0, SEEK_END);
         fwrite($this->_fileResource, $content);
     }
 

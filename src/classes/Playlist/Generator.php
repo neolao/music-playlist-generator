@@ -189,7 +189,7 @@ class Generator
 
             // If the file matches the rules, then add it to the list
             if ($rules->match($metadata)) {
-                $this->_addFile($filePath, $metadata);
+                $this->_writer->addFile($filePath, $metadata);
                 $status = self::STATUS_OK;
                 echo Cli::getColoredString("$lineNumber $status $description", 'green'), "\n";
                 continue;
@@ -199,6 +199,9 @@ class Generator
             $status = self::STATUS_SKIPPED;
             echo "$lineNumber $status $description\n";
         }
+
+        // Close the writer
+        $this->_writer->close();
     }
 
     /**
@@ -213,23 +216,14 @@ class Generator
             case 'm3u8':
                 $writer = new Writer\M3u8();
                 break;
+            case 'pls':
+                $writer = new Writer\Pls();
+                break;
             default:
                 $writer = new Writer\Fake();
         }
 
         return $writer;
-    }
-
-    /**
-     * Add a file to the playlist
-     *
-     * @param   string      $filePath       File path
-     * @param   stdClass    $metadata       File metadata
-     */
-    protected function _addFile($filePath, $metadata)
-    {
-        // Add the file to the playlist
-        $this->_writer->addFile($filePath, $metadata);
     }
 
     /**

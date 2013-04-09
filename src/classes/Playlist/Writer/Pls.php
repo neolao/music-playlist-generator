@@ -5,22 +5,16 @@
 namespace Playlist\Writer;
 
 /**
- * Writer of a playlist M3U8
+ * Writer of a playlist PLS
  */
-class M3u8 extends WriterAbstract implements WriterInterface
+class Pls extends WriterAbstract implements WriterInterface
 {
     /**
-     * Set the target file path
+     * File count
      *
-     * @param   string      $path           File path
+     * @var int
      */
-    public function setFilePath($path)
-    {
-        parent::setFilePath($path);
-
-        // Write the header
-        $this->_append("#EXTM3U\n");
-    }
+    protected $_fileCount = 0;
 
     /**
      * Add a file
@@ -34,6 +28,7 @@ class M3u8 extends WriterAbstract implements WriterInterface
         $artist     = '';
         $title      = '';
         $mediaPath  = $this->_getMediaPath($filePath);
+        $fileIndex  = $this->_fileCount + 1;
 
         // Get the metadatas
         if (isset($metadata->Duration)) {
@@ -47,7 +42,26 @@ class M3u8 extends WriterAbstract implements WriterInterface
         }
 
         // Write the media informations
-        $this->_append("#EXTINF:$duration,$artist - $title\n");
-        $this->_append("$mediaPath\n");
+        $this->_append("File$fileIndex=$mediaPath\n");
+        $this->_append("Title$fileIndex=$artist - $title\n");
+        $this->_append("Length$fileIndex=$duration\n");
+        $this->_append("\n");
+
+        // Increase the file count
+        $this->_fileCount++;
+    }
+
+    /**
+     * Close the writer
+     */
+    public function close()
+    {
+        // Write the header
+        $this->_prepend("[playlist]\nNumberOfEntries=" . $this->_fileCount . "\n\n");
+
+        // Write the footer
+        $this->_append("Version=2");
+
+        parent::close();
     }
 }
