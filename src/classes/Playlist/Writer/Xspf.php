@@ -32,7 +32,7 @@ class Xspf extends WriterAbstract implements WriterInterface
      */
     public function addFile($filePath, $metadata)
     {
-        $duration   = -1;
+        $duration   = 0;
         $artist     = '';
         $title      = '';
         $mediaPath  = $this->_getMediaPath($filePath);

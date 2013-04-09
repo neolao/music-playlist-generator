@@ -75,7 +75,7 @@ Formats
 | m3u8   | Available   |
 | pls    | Available   |
 | xspf   | Available   |
-| asx    | In progress |
+| asx    | Available   |
 
 
 Fields

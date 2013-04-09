@@ -222,6 +222,9 @@ class Generator
             case 'xspf':
                 $writer = new Writer\Xspf();
                 break;
+            case 'asx':
+                $writer = new Writer\Asx();
+                break;
             default:
                 $writer = new Writer\Fake();
         }

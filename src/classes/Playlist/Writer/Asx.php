@@ -5,16 +5,22 @@
 namespace Playlist\Writer;
 
 /**
- * Writer of a playlist PLS
+ * Writer of a playlist ASX
  */
-class Pls extends WriterAbstract implements WriterInterface
+class Asx extends WriterAbstract implements WriterInterface
 {
     /**
-     * File count
+     * Set the target file path
      *
-     * @var int
+     * @param   string      $path           File path
      */
-    protected $_fileCount = 0;
+    public function setFilePath($path)
+    {
+        parent::setFilePath($path);
+
+        // Write the header
+        $this->_append('<asx version="3.0">' . "\n");
+    }
 
     /**
      * Add a file
@@ -28,7 +34,6 @@ class Pls extends WriterAbstract implements WriterInterface
         $artist     = '';
         $title      = '';
         $mediaPath  = $this->_getMediaPath($filePath);
-        $fileIndex  = $this->_fileCount + 1;
 
         // Get the metadatas
         if (isset($metadata->Duration)) {
@@ -42,13 +47,14 @@ class Pls extends WriterAbstract implements WriterInterface
         }
 
         // Write the media informations
-        $this->_append("File$fileIndex=$mediaPath\n");
-        $this->_append("Title$fileIndex=$artist - $title\n");
-        $this->_append("Length$fileIndex=$duration\n");
-        $this->_append("\n");
-
-        // Increase the file count
-        $this->_fileCount++;
+        $hours = floor($duration / (60 * 60));
+        $minutes = ($duration / 60) % 60;
+        $secondes = $duration % 60;
+        $this->_append("    <entry>\n");
+        $this->_append("        <title><![CDATA[$artist - $title]]></title>\n");
+        $this->_append("        <ref href=\"$mediaPath\"/>\n");
+        $this->_append("        <duration value=\"$hours:$minutes:$secondes.00\"/>\n");
+        $this->_append("    </entry>\n");
     }
 
     /**
@@ -56,11 +62,8 @@ class Pls extends WriterAbstract implements WriterInterface
      */
     public function close()
     {
-        // Write the header
-        $this->_prepend("[playlist]\nNumberOfEntries=" . $this->_fileCount . "\n\n");
-
         // Write the footer
-        $this->_append("Version=2");
+        $this->_append("</asx>");
 
         parent::close();
     }
