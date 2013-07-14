@@ -242,6 +242,11 @@ class Generator
     {
         $normalized = clone $metadata;
 
+        // Normalize title
+        if (isset($normalized->Title)) {
+            $normalized->Title = (string) $normalized->Title;
+        }
+
         // Normalize duration
         if (isset($normalized->Duration)) {
             $duration = $normalized->Duration;
