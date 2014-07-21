@@ -213,6 +213,9 @@ class Generator
     protected function _writerFactory($format)
     {
         switch ($format) {
+            case 'm3u':
+                $writer = new Writer\M3u();
+                break;
             case 'm3u8':
                 $writer = new Writer\M3u8();
                 break;
