@@ -87,7 +87,7 @@ class Generator
         }
 
         // Get the media file pattern
-        $mediaFilePattern = '*.mp3';
+        $mediaFilePattern = '*.{mp3,m4a}';
         if (isset($configuration->mediaFilePattern)) {
             $mediaFilePattern = $configuration->mediaFilePattern;
         }
