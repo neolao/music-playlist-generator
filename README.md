@@ -71,7 +71,7 @@ Formats
 
 | Format | Status      |
 | ------ | ----------- |
-| m3u    | Unsupported |
+| m3u    | Available   |
 | m3u8   | Available   |
 | pls    | Available   |
 | xspf   | Available   |
